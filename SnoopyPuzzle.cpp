@@ -65,7 +65,7 @@ void swap(int* px, int* py, int* x, int* y) {
 	*y = *py;
 	*py = tmpY;
 }
-
+clock_t starttime, endtime;
 int main() {
 
 	setGameOption(GameOption::GAME_OPTION_INVENTORY_BUTTON, false);
@@ -99,17 +99,19 @@ int main() {
 					swap(&piece[i].centerX, &piece[i].centerY, &blankX, &blankY);
 				}
 
-			if ((piece[0].centerX == checkedX[0] && piece[0].centerY == checkedY[0]) &&
-				(piece[1].centerX == checkedX[1] && piece[1].centerY == checkedY[1]) &&
-				(piece[2].centerX == checkedX[2] && piece[2].centerY == checkedY[2]) &&
-				(piece[3].centerX == checkedX[3] && piece[3].centerY == checkedY[3]) &&
-				(piece[4].centerX == checkedX[4] && piece[4].centerY == checkedY[4]) &&
-				(piece[5].centerX == checkedX[5] && piece[5].centerY == checkedY[5]) &&
-				(piece[6].centerX == checkedX[6] && piece[6].centerY == checkedY[6]) &&
-				(piece[7].centerX == checkedX[7] && piece[7].centerY == checkedY[7]) &&
-				(piece[8].centerX == checkedX[8] && piece[8].centerY == checkedY[8])) {
-				showMessage("퍼즐 완성!");
-				startButton->show();
+			if (piece[0].centerX == checkedX[0] && piece[0].centerY == checkedY[0] &&
+				piece[1].centerX == checkedX[1] && piece[1].centerY == checkedY[1] &&
+				piece[2].centerX == checkedX[2] && piece[2].centerY == checkedY[2] &&
+				piece[3].centerX == checkedX[3] && piece[3].centerY == checkedY[3] &&
+				piece[4].centerX == checkedX[4] && piece[4].centerY == checkedY[4] &&
+				piece[5].centerX == checkedX[5] && piece[5].centerY == checkedY[5] &&
+				piece[6].centerX == checkedX[6] && piece[6].centerY == checkedY[6] &&
+				piece[7].centerX == checkedX[7] && piece[7].centerY == checkedY[7] &&
+				piece[8].centerX == checkedX[8] && piece[8].centerY == checkedY[8]) {
+				endtime = clock();
+				int time = (endtime-starttime)/ CLOCKS_PER_SEC;
+				scene->enter();
+				showMessage("퍼즐완성!");
 				endButton->show();
 			}
 			return 0;
@@ -120,6 +122,7 @@ int main() {
 		startButton->hide();
 		endButton->hide();
 		scene1->enter();
+		starttime = clock();
 		return 0;
 		});
 
